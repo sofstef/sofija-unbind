@@ -1,6 +1,7 @@
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/entries/img": "img" });
+  eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
 
   eleventyConfig.addDateParsing(function (dateValue) {
     if (typeof dateValue === "string" && /^\d{2}-\d{2}-\d{4}$/.test(dateValue)) {
