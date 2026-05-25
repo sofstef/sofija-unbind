@@ -1,0 +1,58 @@
+---
+layout: layouts/base.njk
+title: all
+active: all
+hideNav: true
+permalink: /all/
+---
+{% set entries = collections.entries | sortByDateDesc %}
+{% set visibleEntries = [] %}
+{% for entry in entries %}
+  {% set v = entry.data.visibleAll %}
+  {% if v != 'no' and v != false %}
+    {% set visibleEntries = (visibleEntries.push(entry), visibleEntries) %}
+  {% endif %}
+{% endfor %}
+
+<section class="archive">
+  <p class="archive-filter">
+    <span class="archive-filter-label">filter by</span>
+    <label class="filter-pill"><input type="checkbox" id="filter-writing"   class="filter-toggle" />writing</label>
+    <label class="filter-pill"><input type="checkbox" id="filter-teaching"  class="filter-toggle" />teaching</label>
+    <label class="filter-pill"><input type="checkbox" id="filter-workshops" class="filter-toggle" />workshops</label>
+    <label class="filter-pill"><input type="checkbox" id="filter-media"     class="filter-toggle" />media</label>
+  </p>
+
+  {% set groups = visibleEntries | groupByYear %}
+  <table class="archive-table">
+    <tbody>
+      {% for group in groups %}
+        {% for item in group.items %}
+          {% set tagClasses = "" %}
+          {% for t in (item.data.tags or []) %}{% set tagClasses = tagClasses + " has-tag-" + t %}{% endfor %}
+          <tr class="archive-row{{ tagClasses }}{% if loop.first %} first-of-year{% endif %}">
+            <td class="archive-year"><span class="year-text">{{ group.year }}</span></td>
+            <td class="archive-title">
+              <a href="{{ item.url }}">{{ item.data.title }}</a>
+            </td>
+            <td class="archive-tags">
+              {% for t in (item.data.tags or []) %}{% if not loop.first %}, {% endif %}{{ t }}{% endfor %}
+            </td>
+            <td class="archive-link">
+              {% if item.data.link %}
+                <a href="{{ item.data.link }}">{{ item.data.linkText or 'link' }}</a>
+              {% else %}
+                {% set primary = (item.data.tags or [])[0] %}
+                {% if primary %}<a href="/{{ primary }}/">{{ item.data.linkText or primary }}</a>{% endif %}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if visibleEntries.length == 0 %}
+    <p class="listing-empty">archive is empty.</p>
+  {% endif %}
+</section>

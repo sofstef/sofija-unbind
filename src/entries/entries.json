@@ -1,0 +1,13 @@
+{
+  "layout": "layouts/entry.njk",
+  "permalink": "/entries/{{ page.fileSlug }}/",
+  "tags": [],
+  "visibleTag": "yes",
+  "visibleAll": "yes",
+  "featured": "no",
+  "eleventyComputed": {
+    "section": "{% set primary = (tags or [])[0] %}{{ primary or '' }}",
+    "active": "{% set primary = (tags or [])[0] %}{{ primary or '' }}",
+    "backUrl": "{% set primary = (tags or [])[0] %}{% if primary %}/{{ primary }}/{% else %}/{% endif %}"
+  }
+}

@@ -1,0 +1,44 @@
+---
+layout: layouts/base.njk
+---
+{% if headerImg %}
+  <figure class="landing-hero">
+    <img src="{{ headerImg }}" alt="" />
+  </figure>
+{% endif %}
+
+{% set featured = collections.entries | sortByDateDesc %}
+{% set featuredCount = 0 %}
+{% for entry in featured %}{% if entry.data.featured == 'yes' or entry.data.featured == true %}{% set featuredCount = featuredCount + 1 %}{% endif %}{% endfor %}
+
+{% if featuredCount > 0 %}
+  <section class="featured-grid">
+    {% for entry in featured %}
+      {% if entry.data.featured == 'yes' or entry.data.featured == true %}
+        <article class="featured-item">
+          {% if entry.data.img %}
+            <a class="featured-thumb" href="{{ entry.url }}">
+              <img src="{{ entry.data.img }}" alt="" />
+            </a>
+          {% endif %}
+
+          <div class="featured-text">
+            {% if entry.data.date %}
+              <p class="featured-date">{{ entry.data.date | dateDisplay }}</p>
+            {% endif %}
+            <h2 class="featured-title"><a href="{{ entry.url }}">{{ entry.data.title }}</a></h2>
+            {% if entry.data.link or entry.data.linkText %}
+              <p class="featured-link">
+                <a href="{{ entry.data.link or entry.url }}">{{ entry.data.linkText or 'read more' }}</a>
+              </p>
+            {% endif %}
+          </div>
+        </article>
+      {% endif %}
+    {% endfor %}
+  </section>
+{% endif %}
+
+<div class="landing-body">
+  {{ content | safe }}
+</div>

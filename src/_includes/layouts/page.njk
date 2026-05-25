@@ -1,0 +1,15 @@
+---
+layout: layouts/base.njk
+---
+{% if sideImg %}
+  <div class="page-split">
+    <div class="page-split-text">
+      {{ content | safe }}
+    </div>
+    <figure class="page-split-image">
+      <img src="{{ sideImg }}" alt="" />
+    </figure>
+  </div>
+{% else %}
+  {{ content | safe }}
+{% endif %}

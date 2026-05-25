@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.name }}{% endif %}
+    </title>
+    <meta name="description" content="{{ description or site.description }}" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <a href="/" class="brand">{{ site.name }}</a>{% if section %} <span class="brand-sep">/ {{ section }}</span>{% endif %}
+      </header>
+
+      <div class="layout{% if hideNav %} layout--full{% endif %}">
+        {% if hideNav %}{% else %}
+        <nav class="sidenav" aria-label="primary">
+          <ul>
+            {% for item in site.nav %}
+              {% set isActive = (active == item.label) or (page.url == item.url) %}
+              <li>
+                <a href="{{ item.url }}" class="{% if isActive %}is-active{% endif %}">{{ item.label }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+          <ul class="sidenav-archive">
+            <li>
+              <a href="{{ site.archive.url }}" class="{% if active == 'all' or page.url == site.archive.url %}is-active{% endif %}">{{ site.archive.label }}</a>
+            </li>
+          </ul>
+        </nav>
+        {% endif %}
+
+        <main class="content">
+          {{ content | safe }}
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

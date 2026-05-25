@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+hideNav: true
+---
+<article class="entry">
+  <p class="entry-back"><a href="{{ backUrl or '/' }}">&lt; back</a></p>
+
+  <div class="entry-text">
+    <header class="entry-meta">
+      <h1 class="entry-title">{{ title }}</h1>
+      {% if subtitle %}<p class="entry-subtitle">{{ subtitle }}</p>{% endif %}
+      <p class="entry-where">
+        {% if location %}{{ location }}<br />{% endif %}
+        {% if date %}on {{ date | dateDisplay }}{% endif %}
+      </p>
+    </header>
+
+    <div class="entry-body">
+      {{ content | safe }}
+    </div>
+
+    {% if link %}
+      <p class="entry-link"><a href="{{ link }}">{{ linkText or link }}</a></p>
+    {% endif %}
+  </div>
+
+  {% if img %}
+    <figure class="entry-image">
+      <img src="{{ img }}" alt="{{ title }}" />
+    </figure>
+  {% endif %}
+</article>

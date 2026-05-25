@@ -1,0 +1,88 @@
+media:
+  name: images
+  label: Images
+  input: src/entries/img
+  output: /img
+  categories: [image]
+
+content:
+  - name: entries
+    label: Entries
+    type: collection
+    path: src/entries
+    format: yaml-frontmatter
+    exclude: [entries.json]
+    filename: "{primary}.md"
+    view:
+      fields: [date, title, tags]
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: subtitle
+        label: Subtitle
+        type: string
+
+      - name: img
+        label: Cover image
+        type: image
+        options:
+          media: images
+          categories: [image]
+
+      - name: tags
+        label: Tags
+        type: select
+        options:
+          multiple: true
+          values: [writing, teaching, workshops, media]
+
+      - name: date
+        label: Date
+        type: string
+        description: "Format: dd-mm-yyyy (e.g. 25-09-2025)"
+        pattern:
+          regex: "^\\d{2}-\\d{2}-\\d{4}$"
+          message: "Use the format dd-mm-yyyy"
+
+      - name: location
+        label: Location
+        type: string
+        description: "e.g. Cambridge, UK"
+
+      - name: link
+        label: External link
+        type: string
+        description: "Optional URL — for sign-ups, podcasts, articles, etc."
+
+      - name: linkText
+        label: Link text
+        type: string
+        description: "Label for the external link, e.g. sign up, listen, read."
+
+      - name: visibleTag
+        label: Show on section listing page
+        type: select
+        options:
+          values: [yes, no]
+
+      - name: visibleAll
+        label: Show in /all archive
+        type: select
+        options:
+          values: [yes, no]
+
+      - name: featured
+        label: Featured on landing page
+        type: select
+        options:
+          values: [yes, no]
+
+      - name: body
+        label: Body
+        type: text

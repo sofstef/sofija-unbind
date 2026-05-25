@@ -1,0 +1,37 @@
+---
+layout: layouts/base.njk
+---
+{% set entries = collections.entries | sortByDateDesc %}
+<section class="listing">
+  {% set count = 0 %}
+  {% for entry in entries %}
+    {% set tags = entry.data.tags or [] %}
+    {% set visible = entry.data.visibleTag %}
+    {% if (tag in tags) and (visible != 'no') and (visible != false) %}
+      {% set count = count + 1 %}
+      <article class="listing-item">
+        {% if entry.data.img %}
+          <a class="listing-thumb" href="{{ entry.url }}">
+            <img src="{{ entry.data.img }}" alt="{{ entry.data.title }}" />
+          </a>
+        {% else %}
+          <div class="listing-thumb listing-thumb--empty" aria-hidden="true"></div>
+        {% endif %}
+
+        <div class="listing-text">
+          <h2 class="listing-title">
+            <a href="{{ entry.url }}">{{ entry.data.title }}</a>
+          </h2>
+          {% if entry.data.subtitle %}
+            <p class="listing-subtitle">{{ entry.data.subtitle }}</p>
+          {% endif %}
+          <p class="listing-body">{{ entry.templateContent | striptags(true) | truncate(320) }}</p>
+        </div>
+      </article>
+    {% endif %}
+  {% endfor %}
+
+  {% if count == 0 %}
+    <p class="listing-empty">nothing here yet.</p>
+  {% endif %}
+</section>
