@@ -5,7 +5,7 @@ img: /img/Technologies-at-work.png
 date: 07-11-2024
 location: Cambridge, UK
 link: https://www.crassh.cam.ac.uk/blog/resisting-big-techs-complicity-in-genocide-notes-from-a-panel-discussion/
-linkText: "Read the notes from the panel discussion here. "
+linkText: read
 visibleTag: no
 visibleAll: yes
 featured: no
