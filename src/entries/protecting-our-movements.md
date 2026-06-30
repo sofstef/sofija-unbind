@@ -6,6 +6,7 @@ tags:
   - workshops
 date: 25-09-2025
 location: Cambridge, UK
+link: https://www.cdh.cam.ac.uk/events/40899/
 linkText: sign up
 visibleTag: yes
 visibleAll: yes
